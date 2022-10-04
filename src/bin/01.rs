@@ -1,4 +1,4 @@
-use numrs::eq_solver::bisection;
+use numrs::eq_solve::bisection;
 
 fn main() {
     let a = 1.0;

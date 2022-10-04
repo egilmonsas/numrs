@@ -1,5 +1,15 @@
 use crate::{calculus::slope_at, utils::ZEq};
-
+/// Solution of f(x) = 0, by means on the bisection method
+///
+/// # Example
+/// ```
+/// use numrs::assert_zeq;
+/// use crate::numrs::utils::ZEq;
+///
+/// let func = |x: f64| -> f64 { x.powi(3) - x - 4.0 };
+/// let sol = numrs::eq_solve::bisection(1.0, 2.0, func);
+/// assert_zeq!(sol, 1.796322)
+/// ```
 pub fn bisection<F: Fn(f64) -> f64>(mut a: f64, mut b: f64, func: F) -> f64 {
     let mut x_old = (a + b) / 2.0;
     for it in 0..100 {

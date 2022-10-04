@@ -1,5 +1,5 @@
 pub mod calculus;
-pub mod eq_solver;
+pub mod eq_solve;
 pub mod utils;
 
 type F = f64;
