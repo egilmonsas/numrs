@@ -55,22 +55,6 @@ pub fn newtons_method<F: Fn(f64) -> f64>(mut x: f64, f: F) -> f64 {
     panic!("Could not find a solution")
 }
 
-pub fn secant_method<F: Fn(f64) -> f64>(mut x: f64, f: F) -> f64 {
-    let mut x_old = x;
-    for it in 0..100 {
-        let y = f(x);
-        let dy = slope_at(&f, x);
-
-        println!(" {:03} | f({:.3}) = {:.3}", it, x, y);
-        if x.zeq(x_old) && it > 0 {
-            return x;
-        }
-        x_old = std::mem::take(&mut x);
-        x = x_old - y / dy;
-    }
-    panic!("Could not find a solution")
-}
-
 #[cfg(test)]
 mod test {
     use crate::{assert_zeq, utils::ZEq};
