@@ -1,10 +1,16 @@
 use crate::{EPSILON, F};
 
-pub fn integral<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize, method: i8) -> F {
+pub enum IntegralMethod {
+    Simpson,
+    Trapezoid,
+    Bar,
+}
+
+pub fn integral<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize, method: IntegralMethod) -> F {
     match method {
-        1 => int_bar(f, a, b, m),
-        2 => int_trap(f, a, b, m),
-        _ => int_simpson(f, a, b, m),
+        IntegralMethod::Bar => int_bar(f, a, b, m),
+        IntegralMethod::Trapezoid => int_trap(f, a, b, m),
+        IntegralMethod::Simpson => int_simpson(f, a, b, m),
     }
 }
 

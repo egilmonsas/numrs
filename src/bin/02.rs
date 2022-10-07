@@ -9,9 +9,18 @@ fn main() {
         println!(
             "{} | {:.0} {:.0} {:.0}",
             i,
-            -(target - integral(&f, x0, x1, i, 1)).abs().ln().floor(),
-            -(target - integral(&f, x0, x1, i, 2)).abs().ln().floor(),
-            -(target - integral(&f, x0, x1, i, 3)).abs().ln().floor()
+            -(target - integral(&f, x0, x1, i, IntegralMethod::Bar))
+                .abs()
+                .ln()
+                .floor(),
+            -(target - integral(&f, x0, x1, i, IntegralMethod::Trapezoid))
+                .abs()
+                .ln()
+                .floor(),
+            -(target - integral(&f, x0, x1, i, IntegralMethod::Simpson))
+                .abs()
+                .ln()
+                .floor()
         );
     }
 }
