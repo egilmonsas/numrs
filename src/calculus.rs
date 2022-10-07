@@ -1,6 +1,14 @@
 use crate::{EPSILON, F};
 
-pub fn int_bar<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize) -> F {
+pub fn integral<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize, method: i8) -> F {
+    match method {
+        1 => int_bar(f, a, b, m),
+        2 => int_trap(f, a, b, m),
+        _ => int_simpson(f, a, b, m),
+    }
+}
+
+fn int_bar<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize) -> F {
     let mut sum = 0.0;
     let dx = (b - a) / (2.0 * m as f64);
     for k in 0..(2 * m + 1) {
@@ -10,7 +18,7 @@ pub fn int_bar<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize) -> F {
     }
     (sum) * dx
 }
-pub fn int_trap<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize) -> F {
+fn int_trap<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize) -> F {
     let mut sum = 0.0;
     let dx = (b - a) / (2.0 * m as f64);
     for k in 1..(2 * m) {
@@ -20,7 +28,7 @@ pub fn int_trap<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize) -> F {
     }
     (sum + (f(a) + f(b)) / 2.0) * dx
 }
-pub fn int_simpson<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize) -> F {
+fn int_simpson<FN: Fn(f64) -> f64>(f: &FN, a: F, b: F, m: usize) -> F {
     let mut sum = 0.0;
     let h = (b - a) / (2.0 * m as f64);
 
