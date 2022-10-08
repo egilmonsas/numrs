@@ -1,6 +1,12 @@
 pub mod calculus;
 pub mod eq_solve;
+pub mod ode;
 pub mod utils;
+
+pub struct XY_point {
+    x: F,
+    y: F,
+}
 
 type F = f64;
 pub const EPSILON: F = 0.0000001;
