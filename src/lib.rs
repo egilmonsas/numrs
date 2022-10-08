@@ -3,7 +3,7 @@ pub mod eq_solve;
 pub mod ode;
 pub mod utils;
 
-pub struct XY_point {
+pub struct Vec2 {
     x: F,
     y: F,
 }
