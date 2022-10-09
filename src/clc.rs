@@ -57,7 +57,7 @@ pub fn slope_at<FN: Fn(f64) -> f64>(f: &FN, x: f64) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{assert_zeq, utils::ZEq};
+    use crate::{assert_zeq, utl::ZEq};
 
     #[test]
     fn test_derivative() {

@@ -1,4 +1,4 @@
-use crate::{calculus::slope_at, utils::ZEq};
+use crate::{clc::slope_at, utl::ZEq};
 /// Solution of f(x) = 0, by means on the bisection method
 ///
 /// # Example
@@ -57,7 +57,7 @@ pub fn newtons_method<F: Fn(f64) -> f64>(mut x: f64, f: F) -> f64 {
 
 #[cfg(test)]
 mod test {
-    use crate::{assert_zeq, utils::ZEq};
+    use crate::{assert_zeq, utl::ZEq};
 
     use super::*;
     #[test]

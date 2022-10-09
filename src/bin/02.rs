@@ -1,4 +1,4 @@
-use numrs::{calculus::*, E, PI};
+use numrs::{clc::*, E, PI};
 
 fn main() {
     let f = |x: f64| -> f64 { E.powf(x) * x.sin() };

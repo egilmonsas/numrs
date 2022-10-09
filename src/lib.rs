@@ -1,7 +1,7 @@
-pub mod calculus;
-pub mod eq_solve;
+pub mod clc;
+pub mod eqs;
 pub mod ode;
-pub mod utils;
+pub mod utl;
 use std::fmt;
 
 #[derive(Clone, Copy)]
