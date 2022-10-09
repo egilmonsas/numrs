@@ -1,5 +1,6 @@
 pub mod clc;
 pub mod eqs;
+pub mod mth;
 pub mod ode;
 pub mod utl;
 use std::fmt;
