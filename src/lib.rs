@@ -2,7 +2,9 @@ pub mod clc;
 pub mod eqs;
 pub mod mth;
 pub mod ode;
+pub mod rsarray;
 pub mod utl;
+
 use std::fmt;
 
 #[derive(Clone, Copy)]
