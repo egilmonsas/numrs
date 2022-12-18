@@ -1,9 +1,20 @@
-#[derive(Debug)]
+#[allow(non_camel_case_types)]
+#[derive(Debug, Clone)]
 pub struct rsarray {
     pub items: Vec<f64>,
 }
+impl std::ops::Index<usize> for rsarray {
+    type Output = f64;
+
+    fn index(&self, index: usize) -> &Self::Output {
+        &self.items[index]
+    }
+}
 
 impl rsarray {
+    pub fn len(&self) -> usize {
+        self.items.len()
+    }
     pub fn sum(&self) -> f64 {
         self.items.iter().sum()
     }
@@ -26,23 +37,23 @@ impl rsarray {
         self.sum() / (self.items.len() as f64)
     }
 
-    fn sort(&mut self) -> &mut Self {
+    pub fn sort(&mut self) -> &mut Self {
         self.items.sort_by(|a, b| a.partial_cmp(b).unwrap());
         self
     }
 
-    fn sorted(&self) -> Self {
+    pub fn sorted(&self) -> Self {
         let mut citems = self.items.clone();
         citems.sort_by(|a, b| a.partial_cmp(b).unwrap());
         Self { items: citems }
     }
 
-    fn clamp(&mut self, min: f64, max: f64) -> &mut Self {
+    pub fn clamp(&mut self, min: f64, max: f64) -> &mut Self {
         self.items = self.items.iter().map(|x| x.clamp(min, max)).collect();
         self
     }
 
-    fn clamped(&self, min: f64, max: f64) -> Self {
+    pub fn clamped(&self, min: f64, max: f64) -> Self {
         Self {
             items: self.items.iter().map(|x| x.clamp(min, max)).collect(),
         }
@@ -85,12 +96,40 @@ impl rsarray {
     pub fn std(&self) -> f64 {
         self.var().sqrt()
     }
+
+    pub fn find(&self, lookup_value: &f64) -> (i64, f64) {
+        // items is already sorted?
+        for (idx, x) in self.items.iter().enumerate() {
+            if lookup_value < x {
+                return (idx as i64 - 1, self.items[idx - 1]);
+            }
+        }
+        return (-1, *lookup_value);
+    }
 }
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_zeq;
+    use crate::utl::ZEq;
+
     use super::*;
     const TOLERANCE: f64 = 0.0001;
+    #[test]
+    fn can_create() {
+        let items = vec![0.7, 0.2, 0.1];
+        let a = rsarray { items };
+        assert_zeq!(a[0], 0.7);
+    }
+    #[test]
+    fn test_find() {
+        let items = vec![0.7, 1.6, 2.5, 4.6, 5.0];
+        let a = rsarray { items };
+
+        let (idx, val) = a.find(&2.6);
+        assert_eq!(idx, 2);
+        assert_zeq!(val, 2.5)
+    }
 
     #[test]
     fn test_sum() {

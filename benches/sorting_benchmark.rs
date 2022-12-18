@@ -1,4 +1,4 @@
-use mathrs::rsarray::*;
+use numrs::rsarray::*;
 use rand;
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
